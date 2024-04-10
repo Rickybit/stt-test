@@ -1,0 +1,6 @@
+python-dotenv
+anthropic
+faster-whisper
+pyaudio
+webrtcvad
+numpy
