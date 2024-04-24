@@ -9,16 +9,16 @@ faster-whisper → claude → (vert-vits-2 or voiceBox) ttsは今後実装予定
 
 # 使い方
 1. venvの仮想環境を有効化する ".\sttest\Scripts\activate" windows版
-". sttest/bin/activate" mac版\\
+". sttest/bin/activate" mac版  
 2. python main.py と入力して実行
 
 # 作成方法
-https://qiita.com/reriiasu/items/920227cf604dfb8b7949\\
-↑ faster-whisperを使ったSTT\\
+https://qiita.com/reriiasu/items/920227cf604dfb8b7949  
+↑ faster-whisperを使ったSTT  
 https://okumuralab.org/~okumura/python/claude_api.html  
-↑ claude 3を使ったchatbotのサンプル\\
+↑ claude 3を使ったchatbotのサンプル  
 https://note.com/key410/n/n1bf0e797da61  
-↑　voicebox apiを使った合成音声のサンプル \\
+↑　voicebox apiを使った合成音声のサンプル  
 これらをベースに組み合わせて作ってみた
 
 # 変更点
