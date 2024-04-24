@@ -58,3 +58,10 @@ def process_transcription(text):
 8. コードの最適化
 9. 話者分離機能の追加　←speakerから再生されている合成音声と人が喋っている声を区別させるため
 10. vadについて深く調べ、無音区間のハルシネーションの改善に取り組む
+
+# Credit
+このプロジェクトには、奥村晴彦先生のコードが含まれています。元のコードは[こちら](https://okumuralab.org/~okumura/python/claude_api.html)からアクセスできます。このコンテンツは[クリエイティブ・コモンズ 表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/)のもとで提供されています。
+
+# Licence
+MIT
+This software is released under the MIT License, see LICENSE.txt.
