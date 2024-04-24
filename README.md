@@ -1,9 +1,6 @@
 # プロジェクト名
 対話型アシスタント
 
-# 概要
-リアルタイムでスムーズな対話ができるチャットボットを構築
-
 # 動作の流れ
 faster-whisper → claude → (vert-vits-2 or voiceBox) ttsは今後実装予定
 
