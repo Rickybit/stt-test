@@ -5,4 +5,5 @@ __pycache__/
 lib/python3.11/site-packages/
 share/man/
 pyenv.cfg
-requirements.txt
+
+/requirements.txt
