@@ -1,8 +1,10 @@
 from audio_transcriber import AudioTranscriber
 from audio_utils import display_valid_input_devices, get_valid_input_devices
+from state_manager import StateManager
 
 if __name__ == "__main__":
-    transcriber = AudioTranscriber()
+    state_manager = StateManager()
+    transcriber = AudioTranscriber(state_manager)
 
     valid_devices = get_valid_input_devices()
     print("使用可能なオーディオデバイス:")

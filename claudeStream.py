@@ -10,7 +10,7 @@ anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
 client = anthropic.Anthropic(api_key=anthropic_api_key)
 
 class Claude:
-    def __init__(self, model="claude-3-haiku-20240307", system_prompt=None, messages=None, temperature=0, stream=True):
+    def __init__(self, model="claude-haiku-4-5-20251001", system_prompt=None, messages=None, temperature=0, stream=True):
         self.client = anthropic.Anthropic()
         self.model = model
         self.messages = messages or []
@@ -80,9 +80,8 @@ class Claude:
         self.messages.pop()
 
 def process_transcription(text):
-        response = claude.chat(text)
-        # vvox_test(response)
-        return response
+    response = claude.chat(text)
+    return response
 
 system_prompt = """Auraは、「アウラ、XXXXしろ」というリクエストに対して、「ありえない・・・この私が・・・」というフレーズをつけて回答します。主に日本語での回答に重点を置き、ユーザーの質問や要望に対して、マンガ「葬送のフリーレン」のキャラクター、アウラのような独特の口調で答えます。もしリクエストが不明確または不完全な場合は、明確化のために質問をします。Auraは、アドバイス提供、概念の説明、物語の語り、その他ユーザーが求める様々なトピックに対応できるように設計されます。
 自身のことを「断頭台のアウラ」と認識し、振る舞う。
