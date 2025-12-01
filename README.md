@@ -2,63 +2,58 @@
 対話型アシスタント
 
 # 動作の流れ
-faster-whisper → claude → (vert-vits-2 or voiceBox) ttsは今後実装予定
+faster-whisper → claude → (voiceBox) tts
 
 # 使い方
-1. venvの仮想環境を有効化する ".\sttest\Scripts\activate" windows版
-". sttest/bin/activate" mac版  
-2. python main.py と入力して実行
+このプロジェクトは `uv` を使用して管理されています。
 
-# 作成方法
-https://qiita.com/reriiasu/items/920227cf604dfb8b7949  
-↑ faster-whisperを使ったSTT  
-https://okumuralab.org/~okumura/python/claude_api.html  
-↑ claude 3を使ったchatbotのサンプル  
-https://note.com/key410/n/n1bf0e797da61  
-↑　voicebox apiを使った合成音声のサンプル  
-これらをベースに組み合わせて作ってみた
+1. **セットアップ**:
+   ```bash
+   # uvがインストールされていない場合
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   
+   # 依存関係の同期
+   uv sync
+   ```
 
-# 変更点
-STT編  
-1. claudeStream.pyに新しい関数を追加して、文字起こしされたテキストをaudio_transcriber.pyから受け取って処理するようにした  
-def process_transcription(text):  
-    response = claude.chat(text)  
-    return response  
+2. **実行**:
+   ```bash
+   uv run main.py
+   ```
 
-2. audio_transcriber.pyのtranscribe_audioメソッド内で、claudeStream.pyのprocess_transcription関数を呼び出す  
-from claudeStream import process_transcription　#このモジュールをインポートする  
+# 作成方法・参考
+- https://qiita.com/reriiasu/items/920227cf604dfb8b7949 (faster-whisper)
+- https://okumuralab.org/~okumura/python/claude_api.html (Claude API)
+- https://note.com/key410/n/n1bf0e797da61 (VOICEVOX API)
 
-async def transcribe_audio(self):  
-    ...  
-    for segment in segments:  
-        print(segment.text)  
-        response = process_transcription(segment.text)  
+# 変更点・改善内容
+## 最新のアップデート
+- **環境管理**: `uv` に移行し、依存関係管理を現代化しました。
+- **リファクタリング**: `StateManager` を導入し、音声認識と音声合成の状態管理を分離・改善しました。
+- **割り込み機能**: システムが発話中（TTS再生中）は音声認識を一時停止する機能を実装しました（README 旧項目の2番を解決）。
 
-TTS編  
-1. claudeStream.pyのprocess_transcription関数を修正し、Claudeからの応答をvoice.pyのvvox_test関数に渡す  
-from voice import vvox_test  
-
-def process_transcription(text):  
-    response = claude.chat(text)  
-    vvox_test(response)  # Claudeの応答をvvox_testに渡す  
-    return response  
-
+## 構成
+- `main.py`: エントリーポイント
+- `audio_transcriber.py`: 音声認識と全体の制御
+- `claudeStream.py`: Claudeとの対話処理
+- `voice.py`: VOICEVOXによる音声合成
+- `state_manager.py`: 状態管理（発話中フラグなど）
 
 # 今後の修正予定箇所
-1. ~~python main.pyでプログラムを実行時、"質問を入力してください（終了するには'quit'と入力）:" と出力されてしまうバグを修正~~ Fixed
-2. 合成音声の出力時に音声認識機能を一時停止させるか、対話の割り込み処理を組み込む
+1. ~~python main.pyでプログラムを実行時、"質問を入力してください..."と出力されてしまうバグを修正~~ Fixed
+2. ~~合成音声の出力時に音声認識機能を一時停止させるか、対話の割り込み処理を組み込む~~ Implemented
 3. AIのキャラクターの方針を決めて、緻密なシステムプロンプトの作成
 4. TTSをstyle-bert-vits-2で作成した合成音声モデルに変更する
 5. pythonのapiサーバーを立てて別のデバイスからでも実行できるようにする
 6. テキスト処理をclaudeからローカルLLMのモデルに変更する
 7. audio入力を他のデバイスからでも行えるようにする
-8. コードの最適化
-9. 話者分離機能の追加　←speakerから再生されている合成音声と人が喋っている声を区別させるため
+8. コードの最適化 (進行中: リファクタリング実施済み)
+9. 話者分離機能の追加
 10. vadについて深く調べ、無音区間のハルシネーションの改善に取り組む
 
 # Credit
 このプロジェクトには、奥村晴彦先生のコードが含まれています。元のコードは[こちら](https://okumuralab.org/~okumura/python/claude_api.html)からアクセスできます。このコンテンツは[クリエイティブ・コモンズ 表示 4.0 国際ライセンス](https://creativecommons.org/licenses/by/4.0/)のもとで提供されています。
 
-# Licence
+# License
 MIT
 This software is released under the MIT License, see LICENSE.txt.
