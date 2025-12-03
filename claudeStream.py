@@ -10,7 +10,7 @@ anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
 client = anthropic.Anthropic(api_key=anthropic_api_key)
 
 class Claude:
-    def __init__(self, model="claude-haiku-4-5-20251001", system_prompt=None, messages=None, temperature=0, stream=True):
+    def __init__(self, model="claude-haiku-4-5", system_prompt=None, messages=None, temperature=0, stream=True):
         self.client = anthropic.Anthropic()
         self.model = model
         self.messages = messages or []
